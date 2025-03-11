@@ -1,11 +1,12 @@
 NAME =	cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -c
+CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -L./minilibx-linux -lmlx -lX11 -lXext -lm
 RM = rm -rf
 
-SRCS = 
+SRCS = main.c \
+
 
 OBJS = $(SRCS:.c=.o)
 

@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugmonch <hugmonch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 12:21:58 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/11 12:24:04 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:15:58 by hugmonch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
