@@ -4,6 +4,21 @@
 # define WINDOW_WIDTH 600
 # define WINDOW_HEIGHT 300
 
+// Remplacement de l'enum e_orientation
+# define O_NORTH 0
+# define O_EAST 1
+# define O_SOUTH 2
+# define O_WEST 3
+
+// Remplacement de l'enum e_images
+# define E_NORTH_WALL 0
+# define E_EAST_WALL 1
+# define E_SOUTH_WALL 2
+# define E_WEST_WALL 3
+# define E_CEILING 4
+# define E_FLOOR 5
+
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ LIB ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
 # include "../libft/libft.h"
