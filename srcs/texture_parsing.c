@@ -1,12 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_map.c                                      :+:      :+:    :+:   */
+/*   texture_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hugmonch <hugmonch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 12:10:01 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/11 13:28:35 by hugmonch         ###   ########.fr       */
+/*   Created: 2025/03/12 13:03:08 by nlambert          #+#    #+#             */
+/*   Updated: 2025/03/12 13:03:42 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/cub3d.h"
+
+int	parse_texture(int fd, t_data *data, int *nb_line, char **rest)
+{
+	
+}

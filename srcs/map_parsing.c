@@ -6,37 +6,12 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 12:21:58 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/11 15:19:47 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:01:17 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-# include <fcntl.h>
 
-int check_colors()
-{
-	
-}
-/*
-	Vérifie si le nom du fichier est correct 
-	(doit se terminer par .cub, ne doit pas être un répertoire).
-*/
-int	check_file_name(char *filename)
-{
-	int	len;
-	int	fd;
-
-	len = ft_strlen(filename);
-	if (len < 4)
-		return (printf("Wrong name of file\n", 1), 0);
-	if (ft_strncmp(filename + (len - 4), ".cub", 4) != 0)
-		return (printf("Wrong name of file\n", 1), 0);
-	fd = open(filename, __O_DIRECTORY);
-	if (fd != -1)
-		return (close(fd),
-			printf("Need a file not a directory\n", 1), 0);
-	return (1);
-}
 /*
 	Vérifie si une position donnée dans la carte est sur le bord ou adjacente à un espace vide.
 	Retourne 0 si la position est sur le bord ou si une des cases adjacentes est un espace vide.
