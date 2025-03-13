@@ -11,12 +11,12 @@
 # define O_WEST 3
 
 // Remplacement de l'enum e_images
-# define E_NORTH_WALL 0
-# define E_EAST_WALL 1
-# define E_SOUTH_WALL 2
-# define E_WEST_WALL 3
-# define E_CEILING 4
-# define E_FLOOR 5
+# define NORTH_WALL 0
+# define EAST_WALL 1
+# define SOUTH_WALL 2
+# define WEST_WALL 3
+# define CEILING 4
+# define FLOOR 5
 
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ LIB ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
@@ -40,6 +40,7 @@ typedef struct s_data
 	void			*mlx;
 	void			*win_ptr;
 	char			**map;
+	char			**filename;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
 	t_position		map_size;
@@ -52,10 +53,12 @@ int	check_sides(char **map, int x, int y, t_position map_size);
 int	check_file_name(char *filename);
 int	parsing(char *filename, t_data *data);
 int	parse_texture(int fd, t_data *data, int *nb_line, char **rest);
+int	texture(t_data *data, char **line, int fd);
+int	parse_texture(int fd, t_data *data, int *nb_line, char **rest);
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UTILS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
 int	is_whitespace(char *str);
-int	skip_whitespace(char *str);
+int	next_whitespace(char *line, int i);
 
 #	endif

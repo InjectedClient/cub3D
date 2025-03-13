@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:59:33 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/12 12:59:55 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:00:33 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,23 @@ int check_colors(char *str, t_data *data, char texture)
 	int				nb_color;
 	unsigned int	color;
 	int				i;
-	int			error;
+	int				error;
 
 	nb_color = 0;
 	color = 0;
-	i = skip_whitespace(str);
+	i = is_whitespace(str);
 	while (str[i] != 0)
 	{
 		color = (color << 8) + get_color(str, &i, &error);
 		if (error == 1)
 			return (0);
 		nb_color++;
-		i += skip_whitespace(str + i);
+		i += is_whitespace(str + i);
 		if (str[i] == '\0' || nb_color == 3)
 			break ;
 		if (str[i] != ',')
 			return (printf("Wrong format of color\n", 1), 0);
-		i += 1 + skip_whitespace(str + i + 1);
+		i += 1 + is_whitespace(str + i + 1);
 	}
 	if (nb_color != 3 || str[i] != '\0')
 		return (printf("Wrong format of color\n", 1), 0);
