@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:26:48 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/13 15:00:24 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:18:29 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,19 @@ int	next_whitespace(char *line, int i)
 			|| line[i] == '\r'))
 		i++;
 	return (i);
+}
+
+void	rm_wspace(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str) - 1;
+	if (i <= 0)
+		return ;
+	while (i >= 0 && (str[i] == ' ' || str[i] == '\t' || str[i] == '\v'
+			|| str[i] == '\n' || str[i] == '\f' || str[i] == '\r'))
+		i--;
+	if (i + 1 < ft_strlen(str))
+		str[i + 1] = '\0';
+	return ;
 }

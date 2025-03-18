@@ -55,10 +55,12 @@ int	parsing(char *filename, t_data *data);
 int	parse_texture(int fd, t_data *data, int *nb_line, char **rest);
 int	texture(t_data *data, char **line, int fd);
 int	parse_texture(int fd, t_data *data, int *nb_line, char **rest);
+int	parse_map(char *filename, t_data *data, int nb_line);
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UTILS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
 int	is_whitespace(char *str);
 int	next_whitespace(char *line, int i);
+void	rm_wspace(char *str);
 
 #	endif
