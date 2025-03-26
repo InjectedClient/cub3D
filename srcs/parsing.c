@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:01:08 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/14 15:20:08 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:07:28 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int parsing(char *filename, t_data *data)
 {
-	int	fd;
+	int		fd;
 	int		i;
 	char	*line;
 	
@@ -34,7 +34,9 @@ int parsing(char *filename, t_data *data)
 		return (close(fd), printf("Empty map\n", 1), 0);
 	if (!parse_map(filename, data, i))
 		return (0);
-	if (!find_player(data))
+	if (!pos_perso(data))
+		return (0);
+	if (!check_map(data))
 		return (0);
 	return (1);
 }

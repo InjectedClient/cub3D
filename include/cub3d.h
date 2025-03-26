@@ -35,6 +35,11 @@ typedef struct s_position {
 	int	y;
 }	t_position;
 
+typedef struct s_perso
+{
+	t_position	pos;
+}	t_perso;
+
 typedef struct s_data
 {
 	void			*mlx;
@@ -43,6 +48,7 @@ typedef struct s_data
 	char			**filename;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
+	t_perso			*joueur;
 	t_position		map_size;
 }	t_data;
 
@@ -56,6 +62,7 @@ int	parse_texture(int fd, t_data *data, int *nb_line, char **rest);
 int	texture(t_data *data, char **line, int fd);
 int	parse_texture(int fd, t_data *data, int *nb_line, char **rest);
 int	parse_map(char *filename, t_data *data, int nb_line);
+int	pos_perso(t_data *data);
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UTILS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
