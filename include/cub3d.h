@@ -12,6 +12,7 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
+# define ESC 65307
 
 # define PI 3.14159265359
 
@@ -49,13 +50,18 @@ typedef struct s_data
 }   t_data;
 
 void init_player(t_player *player);
-int key_press(int keycode, t_player *player);
-int key_release(int keycode, t_player *player);
-void move_player(t_player *player);
+int key_press(int keycode, t_data *data);
+int key_release(int keycode, t_data *data);
+void move_player(t_player *player, t_data *data);
+bool see_wall(float px, float py, t_data *data);
+void draw_line(t_player *player, t_data *data, float start_x);
+void draw_map(t_data *data);
 void put_pixel(t_data *data, int x, int y, int color);
 void draw_square(t_data *data, int x, int y, int size, int color);
 int draw_loop(t_data *data);
 void clear_image(t_data *data);
 void init_data(t_data *data);
+void draw_minimap(t_data *data);
+int close_window(t_data *data);
 
 #	endif

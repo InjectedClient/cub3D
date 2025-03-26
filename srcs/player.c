@@ -15,8 +15,10 @@ void init_player(t_player *player)
     player -> right_rot = false;
 }
 
-int key_press(int keycode, t_player *player)
+int key_press(int keycode, t_data *data)
 {
+    t_player *player = &data->player;
+
     if (keycode == W)
         player->key_up = true;
     if (keycode == S)
@@ -29,11 +31,15 @@ int key_press(int keycode, t_player *player)
         player->left_rot = true;
     if (keycode == RIGHT)    
         player->right_rot = true;
+    if (keycode == ESC)
+        close_window(data);
     return (0);
 }
 
-int key_release(int keycode, t_player *player)
+int key_release(int keycode, t_data *data)
 {
+    t_player *player = &data->player;
+
     if (keycode == W)
         player->key_up = false;
     if (keycode == S)
@@ -49,14 +55,15 @@ int key_release(int keycode, t_player *player)
     return (0);
 }
 
-void move_player(t_player *player)
+void move_player(t_player *player, t_data *data)
 {
-    //int speed = 5; //mac
+//int speed = 5; //mac
     float speed = 0.5; //dell
     float rot_speed = 0.1;
-    float cos_angle = cos(player->angle);
-    float sin_angle = sin(player->angle);
+    float cos_angle, sin_angle;
+    float new_x, new_y;
 
+    // Rotation
     if (player->left_rot)
         player->angle -= rot_speed; 
     if (player->right_rot)
@@ -66,24 +73,47 @@ void move_player(t_player *player)
     if (player->angle < 0)
         player->angle = 2 * PI;
 
+    cos_angle = cos(player->angle);
+    sin_angle = sin(player->angle);
+
+    // Avancer
     if (player->key_up)
     {
-        player->x += cos_angle * speed;
-        player->y += sin_angle * speed;
+        new_x = player->x + cos_angle * speed;
+        if (!see_wall(new_x, player->y, data))
+            player->x = new_x;
+        new_y = player->y + sin_angle * speed;
+        if (!see_wall(player->x, new_y, data))
+            player->y = new_y;
     }
+    // Reculer
     if (player->key_down)
     {
-        player->x -= cos_angle * speed;
-        player->y -= sin_angle * speed;
+        new_x = player->x - cos_angle * speed;
+        if (!see_wall(new_x, player->y, data))
+            player->x = new_x;
+        new_y = player->y - sin_angle * speed;
+        if (!see_wall(player->x, new_y, data))
+            player->y = new_y;
     }
+    // Déplacement latéral gauche
     if (player->key_left)
     {
-        player->x += sin_angle * speed;
-        player->y -= cos_angle * speed;
+        new_x = player->x + sin_angle * speed;
+        if (!see_wall(new_x, player->y, data))
+            player->x = new_x;
+        new_y = player->y - cos_angle * speed;
+        if (!see_wall(player->x, new_y, data))
+            player->y = new_y;
     }
+    // Déplacement latéral droite
     if (player->key_right)
     {
-        player->x -= sin_angle * speed;
-        player->y += cos_angle * speed;
+        new_x = player->x - sin_angle * speed;
+        if (!see_wall(new_x, player->y, data))
+            player->x = new_x;
+        new_y = player->y + cos_angle * speed;
+        if (!see_wall(player->x, new_y, data))
+            player->y = new_y;
     }
 }
