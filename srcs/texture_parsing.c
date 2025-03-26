@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:03:08 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/13 15:43:32 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:13:20 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	get_texture(t_data *data, char *str, int side)
 	int		len;
 
 	if (data->filename[side] != NULL)
-		return (printf("Multiple definition of texture\n", 1), 0);
+		return (print_error("Multiple definition of texture\n", 1), 0);
 	i = is_whitespace(str);
 	len = ft_strlen(str + i);
 	if (len >= 1 && str[i + len - 1] == '\n')
 		str[i + len - 1] = '\0';
 	filename = ft_strdup(str + i);
 	if (filename == NULL)
-		return (printf("Malloc failed\n", 1), 0);
+		return (print_error("Malloc failed\n", 1), 0);
 	data->filename[side] = filename;
 	return (1);
 }

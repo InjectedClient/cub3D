@@ -6,36 +6,38 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:46:52 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/26 11:54:56 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:08:27 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/cub3d.h"
 
-char **get_map(void)
-{
-	char **map = malloc(sizeof(char *) * 11);
-	map[0] = "11111111111";
-	map[1] = "10000000001";
-	map[2] = "10000000001";
-	map[3] = "10001000001";
-	map[4] = "10001000001";
-	map[5] = "10000000001";
-	map[6] = "10000000001";
-	map[7] = "10000010001";
-	map[8] = "10000000001";
-	map[9] = "11111111111";
-	return (map);
-}
+// char **get_map(void)
+// {
+// 	char **map = malloc(sizeof(char *) * 11);
+// 	map[0] = "11111111111";
+// 	map[1] = "10000000001";
+// 	map[2] = "10000000001";
+// 	map[3] = "10001000001";
+// 	map[4] = "10001000001";
+// 	map[5] = "10000000001";
+// 	map[6] = "10000000001";
+// 	map[7] = "10000010001";
+// 	map[8] = "10000000001";
+// 	map[9] = "11111111111";
+// 	return (map);
+// }
+
 // ne pas utiliser put_pixel mais l'adresse du pixel directement
 int main(int argc, char **argv)
 {
 	t_data data;
+	(void)argc;
 	init_data(&data);
 	if (!data.mlx)
-		return (1);
-	if (!parse_file(argv[1], &data))
-		return (close tout);
+		return (0);
+	if (!parsing(argv[1], &data))
+		return (0);
 		
 	mlx_hook(data.win_ptr, 2, 1L<<0, key_press, &data.player);
 	mlx_hook(data.win_ptr, 3, 1L<<1, key_release, &data.player);
@@ -77,7 +79,7 @@ int close_window(t_data *data)
 void init_data(t_data *data)
 {
 	init_player(&data->player);
-	data->map = get_map();
+	//data->map = get_map();
 	data->mlx = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cube3D");
 	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);

@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:00:30 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/18 17:30:21 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:13:16 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	check_file_name(char *filename)
 
 	len = ft_strlen(filename);
 	if (len < 4)
-		return (printf("Wrong name of file\n", 1), 0);
+		return (print_error("Wrong name of file\n", 1), 0);
 	if (ft_strncmp(filename + (len - 4), ".cub", 4) != 0)
-		return (printf("Wrong name of file\n", 1), 0);
+		return (print_error("Wrong name of file\n", 1), 0);
 	fd = open(filename, __O_DIRECTORY);
 	if (fd != -1)
-		return (close(fd), printf("Need a file not a directory\n", 1), 0);
+		return (close(fd), print_error("Need a file not a directory\n", 1), 0);
 	return (1);
 }

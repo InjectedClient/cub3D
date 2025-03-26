@@ -37,9 +37,9 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
-#include <stdlib.h>
-#include <math.h>
-#include <stdbool.h>
+# include <stdlib.h>
+# include <math.h>
+# include <stdbool.h>
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ STRUCTURES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
@@ -87,29 +87,35 @@ typedef struct s_data
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ PARSER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
-int	check_map(t_data *data);
-int	check_sides(char **map, int x, int y, t_position map_size);
-int	check_file_name(char *filename);
-int	parsing(char *filename, t_data *data);
-int	parse_texture(int fd, t_data *data, int *nb_line, char **rest);
-int	texture(t_data *data, char **line, int fd);
-int	parse_texture(int fd, t_data *data, int *nb_line, char **rest);
-int	parse_map(char *filename, t_data *data, int nb_line);
-int	pos_perso(t_data *data);
-void init_player(t_player *player);
-int key_press(int keycode, t_player *player);
-int key_release(int keycode, t_player *player);
-void move_player(t_player *player);
-void put_pixel(t_data *data, int x, int y, int color);
-void draw_square(t_data *data, int x, int y, int size, int color);
-int draw_loop(t_data *data);
-void clear_image(t_data *data);
-void init_data(t_data *data);
-
+int		check_map(t_data *data);
+int		check_colors(char *str, t_data *data, char texture);
+int		check_sides(char **map, int x, int y, t_position map_size);
+int		check_file_name(char *filename);
+int		parsing(char *filename, t_data *data);
+int		parse_texture(int fd, t_data *data, int *nb_line, char **rest);
+int		texture(t_data *data, char **line, int fd);
+int		parse_texture(int fd, t_data *data, int *nb_line, char **rest);
+int		parse_map(char *filename, t_data *data, int nb_line);
+int		pos_perso(t_data *data);
+void	init_player(t_player *player);
+int		key_press(int keycode, t_player *player);
+int		key_release(int keycode, t_player *player);
+void	move_player(t_player *player);
+void	put_pixel(t_data *data, int x, int y, int color);
+void	draw_square(t_data *data, int x, int y, int size, int color);
+int		draw_loop(t_data *data);
+void	clear_image(t_data *data);
+void	init_data(t_data *data);
+int		close_window(t_data *data);
+int		create_map(t_data *data, int fd, char *line);
+char	**map_init(t_position len);
+t_position get_map_size(int fd, char *line, int *error);
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UTILS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
-int	is_whitespace(char *str);
-int	next_whitespace(char *line, int i);
+int		is_whitespace(char *str);
+int		next_whitespace(char *line, int i);
 void	rm_wspace(char *str);
+void	free_tab(char **str, int size);
+void	print_error(char *error, int print);
 
 #	endif

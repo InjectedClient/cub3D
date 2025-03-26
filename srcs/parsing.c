@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:01:08 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/19 15:07:28 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:31:58 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int parsing(char *filename, t_data *data)
 		return (0);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		return (printf(NULL, 0), 0);
+		return (print_error(NULL, 0), 0);
 	if (!parse_texture(fd, data, &i, &line))
 		return (close(fd), 0);
 	while (line != NULL && line[0] == '\n')
@@ -31,7 +31,9 @@ int parsing(char *filename, t_data *data)
 		line = get_next_line(fd);
 	}
 	if (line == NULL)
-		return (close(fd), printf("Empty map\n", 1), 0);
+		return (close(fd), print_error("Empty map\n", 1), 0);
+	if (!create_map(data, fd, line))
+		return (false);
 	if (!parse_map(filename, data, i))
 		return (0);
 	if (!pos_perso(data))

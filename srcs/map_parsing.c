@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 12:21:58 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/26 11:55:07 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:13:17 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parse_map(char *filename, t_data *data, int nb_line)
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		return (printf(NULL, 0), 0);
+		return (print_error(NULL, 0), 0);
 	line = get_next_line(fd);
 	i = -1;
 	while (line != NULL && ++i < nb_line)
@@ -87,11 +87,11 @@ int	check_map(t_data *data)
 			if (map[y][x] != '0' && map[y][x] != '1' && map[y][x] != 'N'
 				&& map[y][x] != 'W' && map[y][x] != 'S' && map[y][x] != 'E'
 				&& map[y][x] != ' ')
-				return (printf("Unknown character in map.\n", 1), 0);
+				return (print_error("Unknown character in map.\n", 1), 0);
 			if (map[y][x] == '0')
 			{
 				if (!check_sides(map, x, y, data->map_size))
-					return (printf("Map must be closed.\n", 1), 0);
+					return (print_error("Map must be closed.\n", 1), 0);
 			}
 			x++;
 		}

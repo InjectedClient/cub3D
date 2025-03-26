@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:26:48 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/19 15:06:18 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:13:47 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,28 @@ void	rm_wspace(char *str)
 	if (i + 1 < ft_strlen(str))
 		str[i + 1] = '\0';
 	return ;
+}
+
+void	free_tab(char **str, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
+
+void	print_error(char *error, int print)
+{
+	if (print == 1)
+		printf("Error\n%s", error);
+	else
+	{
+		printf("Error\n");
+		perror("");
+	}
 }
