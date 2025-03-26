@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:02 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/11 11:43:35 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:21:02 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(char *src);
 char	*ft_itoa(int n);
+void	*ft_memset(void *s, int c, size_t n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 // Get Next Line Functions
 char	*ft_read(int fd, char *stash);

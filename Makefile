@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -L./minilibx-linux -lmlx -lX11 -lXext -lm
 RM = rm -rf
 
-SRCS = main.c ./srcs/player.c \
+SRCS = main.c \
 
 
 OBJS = $(SRCS:.c=.o)
