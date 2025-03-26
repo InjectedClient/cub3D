@@ -1,8 +1,19 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 600
-# define WINDOW_HEIGHT 300
+# define WINDOW_WIDTH 1200
+# define WINDOW_HEIGHT 700
+# define BLOCK_SIZE 64
+
+// Keycodes
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define LEFT 65361
+# define RIGHT 65363
+
+# define PI 3.14159265359
 
 // Remplacement de l'enum e_orientation
 # define O_NORTH 0
@@ -26,14 +37,30 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
-
+#include <stdlib.h>
+#include <math.h>
+#include <stdbool.h>
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ STRUCTURES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
-typedef struct s_position {
-	int	x;
-	int	y;
+typedef struct s_position
+{
+	int x;
+	int y;
 }	t_position;
+
+typedef struct player
+{
+	float x;
+	float y;
+	float angle;
+	bool key_up;
+	bool key_down;
+	bool key_left;
+	bool key_right;
+	bool left_rot;
+	bool right_rot;
+}	t_player;
 
 typedef struct s_perso
 {
@@ -45,10 +72,16 @@ typedef struct s_data
 	void			*mlx;
 	void			*win_ptr;
 	char			**map;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int 			line_length;
+	int				endian;
 	char			**filename;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
 	t_perso			*joueur;
+	t_player		player;
 	t_position		map_size;
 }	t_data;
 
@@ -63,6 +96,15 @@ int	texture(t_data *data, char **line, int fd);
 int	parse_texture(int fd, t_data *data, int *nb_line, char **rest);
 int	parse_map(char *filename, t_data *data, int nb_line);
 int	pos_perso(t_data *data);
+void init_player(t_player *player);
+int key_press(int keycode, t_player *player);
+int key_release(int keycode, t_player *player);
+void move_player(t_player *player);
+void put_pixel(t_data *data, int x, int y, int color);
+void draw_square(t_data *data, int x, int y, int size, int color);
+int draw_loop(t_data *data);
+void clear_image(t_data *data);
+void init_data(t_data *data);
 
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UTILS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
