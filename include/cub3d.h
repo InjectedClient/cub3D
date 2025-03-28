@@ -12,6 +12,7 @@
 # define D 100
 # define LEFT 65361
 # define RIGHT 65363
+# define ESC 65307
 
 # define PI 3.14159265359
 
@@ -29,7 +30,6 @@
 # define CEILING 4
 # define FLOOR 5
 
-
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ LIB ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
 # include "../libft/libft.h"
@@ -37,7 +37,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include <stdlib.h>
 # include <math.h>
 # include <stdbool.h>
 
@@ -94,22 +93,35 @@ int		check_file_name(char *filename);
 int		parsing(char *filename, t_data *data);
 int		parse_texture(int fd, t_data *data, int *nb_line, char **rest);
 int		texture(t_data *data, char **line, int fd);
-int		parse_texture(int fd, t_data *data, int *nb_line, char **rest);
 int		parse_map(char *filename, t_data *data, int nb_line);
 int		pos_perso(t_data *data);
-void	init_player(t_player *player);
-int		key_press(int keycode, t_player *player);
-int		key_release(int keycode, t_player *player);
-void	move_player(t_player *player);
-void	put_pixel(t_data *data, int x, int y, int color);
-void	draw_square(t_data *data, int x, int y, int size, int color);
-int		draw_loop(t_data *data);
-void	clear_image(t_data *data);
-void	init_data(t_data *data);
-int		close_window(t_data *data);
 int		create_map(t_data *data, int fd, char *line);
 char	**map_init(t_position len);
 t_position get_map_size(int fd, char *line, int *error);
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ RENDERING ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+void	init_player(t_player *player);
+void	init_data(t_data *data);
+void	put_pixel(t_data *data, int x, int y, int color);
+void	draw_square(t_data *data, int x, int y, int size, int color);
+void	draw_map(t_data *data);
+void	draw_3d(t_data *data);
+void	draw_minimap(t_data *data);
+void	draw_minimap_line(t_data *data, int x0, int y0, int x1, int y1, int color);
+void	draw_minimap_ray(t_data *data, float angle, int start_x, int start_y, int minimap_block);
+void	draw_line(t_player *player, t_data *data, float start_x);
+int		draw_loop(t_data *data);
+void	clear_image(t_data *data);
+
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ EVENTS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+int		key_press(int keycode, t_data *data);
+int 	key_release(int keycode, t_data *data);
+void 	move_player(t_player *player, t_data *data);
+int		mouse_move(int x, int y, t_data *data);
+int		close_window(t_data *data);
+
 /*━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UTILS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
 
 int		is_whitespace(char *str);
@@ -117,5 +129,6 @@ int		next_whitespace(char *line, int i);
 void	rm_wspace(char *str);
 void	free_tab(char **str, int size);
 void	print_error(char *error, int print);
+bool	see_wall(float px, float py, t_data *data);
 
 #	endif
