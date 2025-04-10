@@ -6,11 +6,11 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:00:30 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/26 15:13:16 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:20:56 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 /*
 	Vérifie si le nom du fichier est correct 

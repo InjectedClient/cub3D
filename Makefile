@@ -5,10 +5,10 @@ CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -L./minilibx-linux -lmlx -lX11 -lXext -lm
 RM = rm -rf
 
-SRCS = main.c srcs/parsing.c srcs/map_parsing.c srcs/texture_parsing.c \
-      srcs/file_parsing.c srcs/perso_parsing.c srcs/utils.c srcs/player.c \
-      srcs/color_parsing.c srcs/map.c
-
+SRCS = main.c srcs/parsing/parsing.c srcs/parsing/map_parsing.c srcs/parsing/texture_parsing.c \
+      srcs/parsing/file_parsing.c srcs/parsing/perso_parsing.c srcs/utils/utils.c srcs/player.c \
+      srcs/parsing/color_parsing.c srcs/parsing/map.c srcs/bonus/minimap.c srcs/bonus/mouse.c \
+	  srcs/graph/3d.c srcs/graph/utils_graph.c
 
 OBJS = $(SRCS:.c=.o)
 

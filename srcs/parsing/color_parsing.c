@@ -6,14 +6,15 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:59:33 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/26 15:13:16 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:24:38 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 /*
-	Définit la couleur pour le sol ou le plafond en fonction du caractère de texture.
+	Définit la couleur pour le sol ou le plafond en fonction du caractère 
+	de texture.
 	Si la texture est 'F', définit la couleur du sol.
 	Sinon c'est 'C', définit la couleur du plafond.
 */
@@ -46,7 +47,7 @@ int	get_color(char *str, int *i, int *error)
 	return (tmp);
 }
 
-int check_colors(char *str, t_data *data, char texture)
+int	check_colors(char *str, t_data *data, char texture)
 {
 	int				nb_color;
 	unsigned int	color;

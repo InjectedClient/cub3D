@@ -6,7 +6,7 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:02 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/26 15:18:23 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:52:02 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ char	*get_next_line(int fd);
 
 char	*ft_strchr(char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
-
 
 #endif

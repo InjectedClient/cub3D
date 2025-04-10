@@ -6,17 +6,18 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:03:08 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/26 15:13:20 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:31:48 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 /*
 	Récupère le nom de la texture à partir de la ligne donnée.
 	Stocke le nom de la texture dans la structure data.
 	Si la texture est déjà définie, retourne une erreur.
-	Si la ligne est valide, alloue de la mémoire pour le nom de la texture et le stocke dans data.
+	Si la ligne est valide, alloue de la mémoire pour le nom de la
+	texture et le stocke dans data.
 */
 int	get_texture(t_data *data, char *str, int side)
 {
@@ -41,7 +42,8 @@ int	get_texture(t_data *data, char *str, int side)
 	Compare les textures et les couleurs.
 	Si la texture est 'F' ou 'C', appelle check_colors.
 	Sinon, appelle get_texture si ça correspond.
-	Retourne 1 si la texture ou la couleur est correctement analysée, sinon retourne 0.
+	Retourne 1 si la texture ou la couleur est correctement analysée
+	sinon retourne 0.
 */
 int	texture_cmp(char *line, t_data *data, int i)
 {
@@ -71,7 +73,8 @@ int	texture_cmp(char *line, t_data *data, int i)
 
 /*
 	Parcours les lignes du fichier pour récupérer les textures.
-	Ignore les lignes vides et appelle texture_cmp pour analyser les lignes de texture.
+	Ignore les lignes vides et appelle texture_cmp pour analyser les lignes
+	de texture.
 	Retourne 1 si la ligne est correctement analysée, sinon retourne 0.
 */
 int	texture(t_data *data, char **line, int fd)
@@ -90,9 +93,11 @@ int	texture(t_data *data, char **line, int fd)
 
 /*
 	Analyse les textures à partir d'un fichier.
-	La fonction lit chaque ligne du fichier, ignore les lignes vides, et utilise la fonction `texture` pour traiter les lignes de texture.
+	La fonction lit chaque ligne du fichier, ignore les lignes vides, et utilise
+	la fonction `texture` pour traiter les lignes de texture.
 	Si erreur ou si moins de 6 textures sont trouvées, la fonction retourne 0.
-	Si toutes les textures sont ok, retourne 1 et stocke la ligne restante dans `rest`.
+	Si toutes les textures sont ok, retourne 1 et stocke la ligne
+	restante dans `rest`.
 */
 int	parse_texture(int fd, t_data *data, int *nb_line, char **rest)
 {

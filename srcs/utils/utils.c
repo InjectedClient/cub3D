@@ -6,11 +6,11 @@
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:26:48 by nlambert          #+#    #+#             */
-/*   Updated: 2025/03/26 15:13:47 by nlambert         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:32:20 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	is_whitespace(char *str)
 {
