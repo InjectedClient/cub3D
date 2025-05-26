@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   display_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 16:19:41 by nlambert          #+#    #+#             */
-/*   Updated: 2025/04/09 12:51:37 by nlambert         ###   ########.fr       */
+/*   Created: 2025/04/14 16:37:31 by nlambert          #+#    #+#             */
+/*   Updated: 2025/05/06 18:37:47 by nlambert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/cub3d.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+bool	see_wall(float px, float py, t_data *data)
 {
-	register size_t			i;
-	register const size_t	size = sizeof(size_t);
+	int	x;
+	int	y;
+
+	x = px / BLOCK_SIZE;
+	y = py / BLOCK_SIZE;
+	if (data->map[y][x] == '1')
+		return (1);
+	return (0);
+}
+
+void	clear_image(t_data *data)
+{
+	int	i;
+	int	j;
 
 	i = 0;
-	if (n > size)
+	while (i < WINDOW_WIDTH)
 	{
-		while (i < n - size)
+		j = 0;
+		while (j < WINDOW_HEIGHT)
 		{
-			*(size_t *)(dest + i) = *(size_t *)(src + i);
-			i += size;
+			put_pixel(data, i, j, 0x00000000);
+			j++;
 		}
-	}
-	while (i != n)
-	{
-		*(unsigned char *)(dest + i) = *(unsigned char *)(src + i);
 		i++;
 	}
-	return (dest);
 }

@@ -3,104 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugmonch <hugmonch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 12:21:58 by nlambert          #+#    #+#             */
-/*   Updated: 2025/04/10 16:21:35 by nlambert         ###   ########.fr       */
+/*   Created: 2025/04/23 14:05:25 by nlambert          #+#    #+#             */
+/*   Updated: 2025/05/20 15:49:49 by hugmonch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-/*
-	La fonction `parse_map` lit et analyse une carte à partir d'un fichier.
-	Elle prend en paramètres le nom du fichier `filename`,
-		une structure `t_data`
-	pour stocker les données, et un entier `nb_line` pour spécifier le nombre
-	de lignes à ignorer au début du fichier. La fonction ouvre le fichier, lit
-	les lignes spécifiées, et les stocke dans la structure `data`. Elle ignore
-	les lignes vides et utilise `rmv_final_whitespace` pour supprimer les espaces
-	en fin de ligne. Si une erreur est rencontrée lors de l'ouverture du fichier
-	ou de la lecture des lignes, la fonction retourne 0. Si toutes les lignes
-	sont correctement analysées, la fonction retourne 1.
-*/
-int	parse_map(char *filename, t_data *data, int nb_line)
+int	count_remaining_lines(t_parse_context *data)
 {
-	int		i;
-	int		fd;
-	char	*line;
+	int	remaining_lines;
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		return (print_error(NULL, 0), 0);
-	line = get_next_line(fd);
-	i = -1;
-	while (line != NULL && ++i < nb_line)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	i = -1;
-	while (line != NULL && ++i < data->map_size.y)
-	{
-		rm_wspace(line);
-		ft_memcpy(data->map[i], line, ft_strlen(line));
-		ft_memset(data->map[i] + ft_strlen(line), ' ', data->map_size.x - ft_strlen(line));
-		free(line);
-		line = get_next_line(fd);
-	}
-	return (free(line), close(fd), 1);
+	remaining_lines = 1;
+	while (read_file_line(data->fd, data->line, data->max_len))
+		remaining_lines++;
+	close(data->fd);
+	return (remaining_lines);
 }
 
-/*
-	Vérifie si une position donnée dans la carte est sur le bord ou adjacente
-	à un espace vide. Retourne 0 si la position est sur le bord ou si une des
-	cases adjacentes est un espace vide. Sinon, retourne 1.
-*/
-static bool	side(char **map, float x, float y, t_player *map_size)
+int	process_map_lines(t_parse_context *data, char **map_lines,
+		int remaining_lines)
 {
-	if ((int)x == 0 || (int)y == 0 || (int)x == (int)map_size->x - 1
-		|| (int)y == (int)map_size->y - 1)
-		return (0);
-	if (map[(int)y - 1][(int)x] == ' ' || map[(int)y][(int)x - 1] == ' '
-		|| map[(int)y + 1][(int)x] == ' ' || map[(int)y][(int)x + 1] == ' ')
-		return (0);
-	return (1);
-}
-
-/*
-	Analyse la carte pour vérifier si elle est fermée. La fonction parcourt
-	chaque position de la carte et vérifie si elle contient un caractère valide.
-	Si une position contient un '0', elle appelle `sides` pour vérifier
-	si la position est fermée. Si une erreur est rencontrée ou si la carte
-	n'est pas fermée, la fonction retourne 0. Si la carte est correctement
-	analysée et fermée, la fonction retourne 1.
-*/
-int	check_map(t_data *data)
-{
-	char	**map;
-	int		x;
-	int		y;
-
-	map = data->map;
-	y = 0;
-	while (y < data->map_size.y)
+	while (read_file_line(data->fd, data->line, data->max_len)
+		&& data->line_count < remaining_lines)
 	{
-		x = 0;
-		while (x < data->map_size.x)
+		if (!malloc_cpy_line(map_lines, data->line, data->line_count))
 		{
-			if (map[y][x] != '0' && map[y][x] != '1' && map[y][x] != 'N'
-				&& map[y][x] != 'W' && map[y][x] != 'S' && map[y][x] != 'E'
-				&& map[y][x] != ' ')
-				return (print_error("Unknown character in map.\n", 1), 0);
-			if (map[y][x] == '0')
-			{
-				if (!side(map, data->player.x, data->player.y, &data->map_size))
-					return (print_error("Map must be closed.\n", 1), 0);
-			}
-			x++;
+			free_map_memory(map_lines, data->line_count);
+			close(data->fd);
+			return (0);
 		}
-		y++;
+		data->line_count++;
 	}
+	map_lines[data->line_count] = NULL;
 	return (1);
+}
+
+char	**setup_map_data(t_parse_context *data, int remaining_lines)
+{
+	char	**map_lines;
+
+	map_lines = allocate_map_memory(remaining_lines);
+	if (!map_lines)
+	{
+		close(data->fd);
+		return (NULL);
+	}
+	if (!malloc_cpy_line(map_lines, data->line, 0))
+	{
+		free_map_memory(map_lines, 0);
+		close(data->fd);
+		return (NULL);
+	}
+	data->line_count = 1;
+	if (!process_map_lines(data, map_lines, remaining_lines))
+		return (NULL);
+	return (map_lines);
+}
+
+int	is_map_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	if (line[i] == '1' || line[i] == '0')
+		return (1);
+	return (0);
+}
+
+char	**extract_map_data(const char *map_path)
+{
+	t_parse_context	data;
+	char			**map_lines;
+	int				remaining_lines;
+
+	data = init_extract_data(map_path);
+	map_lines = NULL;
+	remaining_lines = count_remaining_lines(&data);
+	data.fd = open_map_file(map_path);
+	while (read_file_line(data.fd, data.line, data.max_len))
+	{
+		if (is_map_line(data.line))
+			break ;
+	}
+	map_lines = setup_map_data(&data, remaining_lines);
+	if (!map_lines)
+	{
+		close(data.fd);
+		print_error("Failed to allocate memory for map data", 1);
+		return (NULL);
+	}
+	close(data.fd);
+	return (map_lines);
 }

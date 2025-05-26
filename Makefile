@@ -5,10 +5,32 @@ CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -L./minilibx-linux -lmlx -lX11 -lXext -lm
 RM = rm -rf
 
-SRCS = main.c srcs/parsing/parsing.c srcs/parsing/map_parsing.c srcs/parsing/texture_parsing.c \
-      srcs/parsing/file_parsing.c srcs/parsing/perso_parsing.c srcs/utils/utils.c srcs/player.c \
-      srcs/parsing/color_parsing.c srcs/parsing/map.c srcs/bonus/minimap.c srcs/bonus/mouse.c \
-	  srcs/graph/3d.c srcs/graph/utils_graph.c
+SRCS = \
+	main.c \
+	srcs/player/player.c \
+	srcs/player/player2.c \
+	srcs/player/player_controls.c \
+	srcs/3d/display_map.c \
+	srcs/parsing/map_file.c \
+	srcs/parsing/map_memory.c \
+	srcs/3d/render_3D.c \
+	srcs/3d/render_3Dbis.c \
+	srcs/3d/render_3Dtres.c \
+	srcs/3d/textures.c \
+	srcs/parsing/init.c \
+	srcs/parsing/map_parser.c \
+	srcs/parsing/map_parsing.c \
+	srcs/parsing/map_player.c \
+	srcs/parsing/map_textures.c \
+	srcs/parsing/map_validation.c \
+	srcs/parsing/parse_textures.c \
+	srcs/utils/free_utils.c \
+	srcs/utils/map_validation_utils.c \
+	srcs/utils/parsing_utils.c \
+	srcs/utils/utils.c \
+	srcs/utils/utils2.c \
+	srcs/utils/utils3.c \
+	bonus/mouse.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -19,7 +41,6 @@ END			= \033[0m
 TOTAL_FILES = $(words $(SRCS))
 
 all:			$(NAME)
-				@clear
 				@echo "${MAGENTA}                                         ${END}";
 				@echo "${MAGENTA} ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ ${END}";
 				@echo "${MAGENTA}██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗${END}";

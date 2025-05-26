@@ -7,8 +7,8 @@ RM = rm -f
 Lib_H = libft.h
 
 SRCS_LIBFT =  get_next_line.c get_next_line_utils.c ft_strlen.c \
-				ft_strdup.c ft_itoa.c ft_memset.c ft_memcpy.c ft_calloc.c \
-					ft_strncmp.c \
+				ft_strdup.c ft_itoa.c ft_memset.c ft_strncmp.c ft_atoi.c \
+				ft_strtok.c ft_strcmp.c
 
 
 OBJS_LIBFT = $(SRCS_LIBFT:%.c=%.o)

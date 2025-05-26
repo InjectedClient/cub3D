@@ -3,61 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlambert <nlambert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hugmonch <hugmonch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 12:26:48 by nlambert          #+#    #+#             */
-/*   Updated: 2025/04/10 15:32:20 by nlambert         ###   ########.fr       */
+/*   Created: 2025/04/14 16:38:30 by nlambert          #+#    #+#             */
+/*   Updated: 2025/05/19 14:51:50 by hugmonch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	is_whitespace(char *str)
+void	put_pixel(t_data *data, int x, int y, int color)
 {
-	int	i;
+	char	*dst;
 
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' || str[i] == '\n'
-		|| str[i] == '\f' || str[i] == '\r')
-		i++;
-	return (i);
-}
-
-int	next_whitespace(char *line, int i)
-{
-	while (line[i] != '\0' && !(line[i] == ' ' || line[i] == '\t'
-			|| line[i] == '\v' || line[i] == '\n' || line[i] == '\f'
-			|| line[i] == '\r'))
-		i++;
-	return (i);
-}
-
-void	rm_wspace(char *str)
-{
-	int	i;
-
-	i = ft_strlen(str) - 1;
-	if (i <= 0)
+	if (x < 0 || x >= WINDOW_WIDTH || y < 0 || y >= WINDOW_HEIGHT)
 		return ;
-	while (i >= 0 && (str[i] == ' ' || str[i] == '\t' || str[i] == '\v'
-			|| str[i] == '\n' || str[i] == '\f' || str[i] == '\r'))
-		i--;
-	if (i + 1 < ft_strlen(str))
-		str[i + 1] = '\0';
-	return ;
-}
-
-void	free_tab(char **str, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
 void	print_error(char *error, int print)
@@ -68,5 +30,46 @@ void	print_error(char *error, int print)
 	{
 		printf("Error\n");
 		perror("");
+	}
+}
+
+int	close_window(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->north.img)
+		mlx_destroy_image(data->mlx, data->north.img);
+	if (data->south.img)
+		mlx_destroy_image(data->mlx, data->south.img);
+	if (data->east.img)
+		mlx_destroy_image(data->mlx, data->east.img);
+	if (data->west.img)
+		mlx_destroy_image(data->mlx, data->west.img);
+	if (data->win_ptr)
+		mlx_destroy_window(data->mlx, data->win_ptr);
+	mlx_destroy_image(data->mlx, data->img);
+	while (data->map && data->map[i])
+		free(data->map[i++]);
+	if (data->map)
+		free(data->map);
+	mlx_loop_end(data->mlx);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	exit(0);
+}
+
+void	free_map_and_window(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->win_ptr)
+		mlx_destroy_window(data->mlx, data->win_ptr);
+	if (data->map)
+	{
+		while (data->map[i])
+			free(data->map[i++]);
+		free(data->map);
 	}
 }
